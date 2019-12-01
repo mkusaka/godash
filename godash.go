@@ -2,7 +2,6 @@ package godash
 
 import (
 	"fmt"
-	"log"
 	"reflect"
 	"sort"
 )
@@ -26,18 +25,18 @@ func IntFilter(elements []int, f func(e int) bool) []int {
 
 func Filter(elements interface{}, f func(i int) bool) []interface{} {
 	cached := []interface{}{}
-	items := reflect.ValueOf(elements)
-	log.Println(items.Kind())
+	items := reflect.ValueOf(elements).Elem()
+	// log.Println(items.Kind())
 	if items.Kind() == reflect.Slice {
 		for i := 0; i < items.Len(); i++ {
 			if f(i) {
 				cached = append(cached, reflect.Indirect(items.Index(i)).Interface())
-				fmt.Println(reflect.TypeOf(reflect.Indirect(items.Index(i)).Interface()))
+				// fmt.Println(reflect.TypeOf(reflect.Indirect(items.Index(i)).Interface()))
 			}
 			// fmt.Println(reflect.Indirect(items.Index(i)).Interface())
 		}
 	} else {
-		panic("elements must be slice")
+		panic("elements must be slice ptr")
 	}
 	fmt.Println(reflect.TypeOf(elements))
 	return cached
