@@ -28,6 +28,15 @@ func Filter(elements interface{}, f func(i int) bool) []interface{} {
 	items := reflect.ValueOf(elements).Elem()
 	// log.Println(items.Kind())
 	if items.Kind() == reflect.Slice {
+		// TODO: modify elements ptr directly like follows. but I don't know how implement that in golang.
+		//       if follows implemented, we no longer typecast as explained in filter useage.
+		// for i := 0; i < items.Len(); i++ {
+		// 	target = items.Index(1)
+		// 	items = items[items.Len() - 1]
+		// 	if f(i) {
+		// 		items = append(items, target)
+		// 	}
+		// }
 		for i := 0; i < items.Len(); i++ {
 			if f(i) {
 				cached = append(cached, reflect.Indirect(items.Index(i)).Interface())
