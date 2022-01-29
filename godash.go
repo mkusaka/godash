@@ -1,5 +1,7 @@
+// Package godash provide lodash like array manipulation utility functions.
 package godash
 
+// Filter accepts array and functions to filter and returns array filtered by given function.
 func Filter[T any](input []T, filterFunc func(e T) bool) []T {
 	var filtered []T
 	for _, v := range input {
@@ -10,6 +12,7 @@ func Filter[T any](input []T, filterFunc func(e T) bool) []T {
 	return filtered
 }
 
+// Map accepts array and functions to map and returns array filtered by given function.
 func Map[T any, K any](input []T, mapFunc func(e T) K) []K {
 	var mapped []K
 	for _, v := range input {

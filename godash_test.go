@@ -34,7 +34,7 @@ func TestStringArrayFilter(t *testing.T) {
 	}
 }
 
-func MapStringToIntFilter(t *testing.T) {
+func TestMapStringToIntFilter(t *testing.T) {
 	array := []string{"11", "234", "234234"}
 
 	mapped := Map(array, func(i string) int {
