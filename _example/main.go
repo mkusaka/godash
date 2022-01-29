@@ -1,13 +1,3 @@
-# godash
-package to provide lodash like api 
-
-# supported version
-1.18beta1 or higher
-
-# useage
-## filter
-
-```go
 package main
 
 import (
@@ -23,4 +13,3 @@ func main() {
 	})
 	fmt.Printf("filterd : %+v", filtered)
 }
-```
