@@ -34,7 +34,7 @@ func TestStringArrayFilter(t *testing.T) {
 	}
 }
 
-func TestMapStringToIntFilter(t *testing.T) {
+func TestStringToIntMap(t *testing.T) {
 	array := []string{"11", "234", "234234"}
 
 	mapped := Map(array, func(i string) int {
@@ -45,5 +45,17 @@ func TestMapStringToIntFilter(t *testing.T) {
 
 	if !cmp.Equal(mapped, expected) {
 		t.Errorf("expected %v but got %v", expected, mapped)
+	}
+}
+
+func TestReverseString(t *testing.T) {
+	array := []string{"11", "234", "234234"}
+
+	reversed := Reverse(array)
+
+	expected := []string{"234234", "234", "11"}
+
+	if !cmp.Equal(reversed, expected) {
+		t.Errorf("expected %v but got %v", expected, reversed)
 	}
 }

@@ -20,3 +20,12 @@ func Map[T any, K any](input []T, mapFunc func(e T) K) []K {
 	}
 	return mapped
 }
+
+func Reverse[T any](input []T) []T {
+	ilen := len(input)
+	reversed := make([]T, ilen, ilen)
+	for idx, v := range input {
+		reversed[ilen-1-idx] = v
+	}
+	return reversed
+}
