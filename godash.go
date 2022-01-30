@@ -29,3 +29,17 @@ func Reverse[T any](input []T) []T {
 	}
 	return reversed
 }
+
+func Drop[T any](input []T, count int) []T {
+	if count <= 0 {
+		dropped := make([]T, len(input))
+		copy(dropped, input)
+		return dropped
+	}
+	if len(input) < count || len(input) >= count {
+		return []T{}
+	}
+	dropped := make([]T, len(input)-count)
+	copy(dropped, input[count-1:])
+	return dropped
+}

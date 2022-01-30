@@ -1,6 +1,7 @@
 package godash
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -58,4 +59,74 @@ func TestReverseString(t *testing.T) {
 	if !cmp.Equal(reversed, expected) {
 		t.Errorf("expected %v but got %v", expected, reversed)
 	}
+}
+
+func TestDropStringArr(t *testing.T) {
+	type args[T any] struct {
+		input []T
+		count int
+	}
+	tests := []struct {
+		name string
+		args args[string]
+		want []string
+	}{
+		{
+			name: "String Array with 0 drop",
+			args: args[string]{
+				input: []string{"1", "3", "4"},
+				count: 0,
+			},
+			want: []string{"1", "3", "4"},
+		},
+		{
+			name: "String Array with -1 drop",
+			args: args[string]{
+				input: []string{"1", "3", "4"},
+				count: -1,
+			},
+			want: []string{"1", "3", "4"},
+		},
+		{
+			name: "String Array with len(array) drop",
+			args: args[string]{
+				input: []string{"1", "3", "4"},
+				count: 3,
+			},
+			want: []string{},
+		},
+		{
+			name: "String Array with len(array) + 1 drop",
+			args: args[string]{
+				input: []string{"1", "3", "4"},
+				count: 4,
+			},
+			want: []string{},
+		},
+		{
+			name: "String Array with 0 < count < len(array) drop(1)",
+			args: args[string]{
+				input: []string{"3", "4"},
+				count: 1,
+			},
+			want: []string{},
+		},
+		{
+			name: "String Array with 0 < count < len(array) drop(2)",
+			args: args[string]{
+				input: []string{"4"},
+				count: 1,
+			},
+			want: []string{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := Drop(tt.args.input, tt.args.count)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewGenerator() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+	// TODO: test with other types
 }
